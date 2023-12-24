@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3E23E29B-EFFB-4671-8F07-A5D227D168B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Common\Domain.csproj", "{3E23E29B-EFFB-4671-8F07-A5D227D168B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{603EADB0-771E-4357-9C36-70C059B47B39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "DataAccess\Data.csproj", "{603EADB0-771E-4357-9C36-70C059B47B39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation\Presentation.csproj", "{B70D6AC7-7AC6-4857-A4B5-61969C7EC37E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Presentation\Presentation\Presentation.csproj", "{B70D6AC7-7AC6-4857-A4B5-61969C7EC37E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

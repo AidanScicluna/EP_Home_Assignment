@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Common\Domain.csproj" />
   </ItemGroup>
 
 </Project>
