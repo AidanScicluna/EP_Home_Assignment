@@ -1,4 +1,6 @@
 ﻿using Data.Context;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,36 @@ namespace Data.Repositories
             _context = context;
         }
 
-        //Book()
+        // checks that the selected ticket is valid (not already in use / cancelled) and saves it to the database
+        public void Book(Ticket ticket)
+        {
+            if (_context.Tickets.Any(x => x.FlightIdFK == ticket.FlightIdFK && x.Row == ticket.Row && x.Column == ticket.Column && !x.Cancelled))
+            {
+                throw new InvalidOperationException("The chosen seat is already booked. Please select another one.");
+            }
 
-        //Cancel()
+            _context.Tickets.Add(ticket);
+            _context.SaveChanges();
 
-        //GetTickets()
+        }
+
+        //the booked ticket will be cancelled but not deleted (the seat can be used/selected again by someone else)
+        public void Cancel(Guid id)
+        {
+            var cancelTicket = _context.Tickets.FirstOrDefault(x => x.Id == id);
+
+            //Properly check that the selected ticket to be cancelled exists and is not already cancelled
+            if (cancelTicket != null && !cancelTicket.Cancelled)
+            {
+                cancelTicket.Cancelled = true;
+                _context.SaveChanges();
+            }
+        }
+
+        //Returns all the tickets for a flight selected
+        public IQueryable<Ticket> GetTickets(Guid id)
+        {
+            return _context.Tickets.Where(x => x.FlightIdFK == id);
+        }
     }
 }
