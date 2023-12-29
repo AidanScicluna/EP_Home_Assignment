@@ -17,7 +17,10 @@ namespace Domain.Models
 
         [ForeignKey("Flight")]
         public Guid FlightIdFK { get; set; }
-        public string Passport { get; set; }
+
+        [ForeignKey("User")]
+        public int UserIdFk { get; set; }
+        public string? PassportNumber { get; set; }
         public float PricePaid { get; set; }
         public bool Cancelled { get; set; }
     }

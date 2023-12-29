@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Domain.Models.ViewModels.FlightViewModel>
+
+@{
+    ViewData["Title"] = "showAvailableFlights";
+}
+
+<h1>showAvailableFlights</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.FlightId)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.ArrivalDate)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.DepartureDate)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.CountryFrom)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.CountryTo)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.RetailPrice)
+            </td>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RetailPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Book Flight", "BookFlight", new { FlightId = item.FlightId ,RetailPrice = item.RetailPrice }) |
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Context
 {
-    public class AirlineDbContext : DbContext
+    public class AirlineDbContext : IdentityDbContext<AirlineUser>
     {
 
         public AirlineDbContext(DbContextOptions<AirlineDbContext> option): base(option)
