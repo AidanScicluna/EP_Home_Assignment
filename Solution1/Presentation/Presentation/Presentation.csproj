@@ -29,6 +29,42 @@
 
   <ItemGroup>
     <Folder Include="Views\ViewModels\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Identity\Pages\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Register.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Identity\Pages\Account\Login.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Identity\Pages\Account\Register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
   </ItemGroup>
 
 </Project>

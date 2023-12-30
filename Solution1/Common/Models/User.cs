@@ -9,7 +9,7 @@ namespace Domain.Models
 {
     public class AirlineUser : IdentityUser
     {
-        public string Passport { get; set; }
+        public string? PassportNumber { get; set; }
 
         //public Guid userId { get; set; }
 

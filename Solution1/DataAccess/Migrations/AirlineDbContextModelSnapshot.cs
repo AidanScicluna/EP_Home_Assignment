@@ -55,8 +55,7 @@ namespace Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Passport")
-                        .IsRequired()
+                    b.Property<string>("PassportNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -145,6 +144,9 @@ namespace Data.Migrations
                     b.Property<Guid>("FlightIdFK")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PassportImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PassportNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -152,9 +154,6 @@ namespace Data.Migrations
                         .HasColumnType("real");
 
                     b.Property<int>("Row")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserIdFk")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

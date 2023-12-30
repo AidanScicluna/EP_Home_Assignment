@@ -6,9 +6,6 @@
 
 <h1>showAvailableFlights</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -55,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.RetailPrice)
             </td>
             <td>
-                @Html.ActionLink("Book Flight", "BookFlight", new { FlightId = item.FlightId ,RetailPrice = item.RetailPrice }) |
+                @Html.ActionLink("Book Flight", "BookFlight", new { FlightId = item.FlightId ,RetailPrice = item.RetailPrice })
                 
             </td>
         </tr>

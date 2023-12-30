@@ -49,5 +49,16 @@ namespace Data.Repositories
         {
             return _context.Tickets.Where(x => x.FlightIdFK == id);
         }
+
+        //Returns all the tickets that were bought by a user 
+        public IQueryable<Ticket> GetTicketsByUser(string passport)
+        {
+            return _context.Tickets.Where(x => x.PassportNumber == passport);
+        }
+
+        public Ticket GetTicket(Guid id)
+        {
+            return _context.Tickets.SingleOrDefault(x => x.Id == id);
+        }
     }
 }

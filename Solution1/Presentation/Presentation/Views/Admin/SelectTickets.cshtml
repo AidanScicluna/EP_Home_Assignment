@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Domain.Models.ViewModels.DetailTicketViewModel>
+
+@{
+    ViewData["Title"] = "SelectTickets";
+}
+
+<h1>SelectTickets</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Row)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Column)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RetailPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Row)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RetailPrice)
+            </td>
+            <td>
+                    @Html.ActionLink("Details", "DetailsTicket", new { TicketId = item.Id})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
