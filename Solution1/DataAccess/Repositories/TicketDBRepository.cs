@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class TicketDBRepository
+    public class TicketDBRepository: ITicketRepository
     {
         AirlineDbContext _context;
 

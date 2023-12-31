@@ -1,4 +1,5 @@
 ﻿using Data.Repositories;
+using Domain.Interfaces;
 using Domain.Models;
 using Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -12,13 +13,13 @@ namespace Presentation.Controllers
     public class TicketsController : Controller
     {
 
-        private TicketDBRepository _ticketDBRepository;
+        private ITicketRepository _ticketDBRepository;
 
         private FlightDbRepository _flightDBRepository;
 
         private UserManager<AirlineUser> _userManager;
         
-        public TicketsController(TicketDBRepository ticketDBRepository, FlightDbRepository flightDBRepository, UserManager<AirlineUser> userManager)
+        public TicketsController(ITicketRepository ticketDBRepository, FlightDbRepository flightDBRepository, UserManager<AirlineUser> userManager)
         {
             _ticketDBRepository = ticketDBRepository;
             _flightDBRepository = flightDBRepository;

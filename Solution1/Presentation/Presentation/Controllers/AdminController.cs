@@ -1,4 +1,5 @@
 ﻿using Data.Repositories;
+using Domain.Interfaces;
 using Domain.Models;
 using Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +11,11 @@ namespace Presentation.Controllers
     {
         private FlightDbRepository _flightDBRepository;
 
-        private TicketDBRepository _ticketDBRepository;
+        private ITicketRepository _ticketDBRepository;
 
         private UserManager<AirlineUser> _userManager;
 
-        public AdminController(FlightDbRepository flightDBRepository, TicketDBRepository ticketDBRepository, UserManager<AirlineUser> userManager)
+        public AdminController(FlightDbRepository flightDBRepository, ITicketRepository ticketDBRepository, UserManager<AirlineUser> userManager)
         {
             _flightDBRepository = flightDBRepository;
             _ticketDBRepository = ticketDBRepository;
@@ -100,5 +101,21 @@ namespace Presentation.Controllers
 
             return View(view);
         }
+
+        [HttpGet]
+        public IActionResult Cancel(Guid id)
+        {
+            var cancelTicket = _ticketDBRepository.GetTicket(id);
+
+            //Properly check that the selected ticket to be cancelled exists and is not already cancelled
+            if (cancelTicket != null && !cancelTicket.Cancelled)
+            {
+                _ticketDBRepository.Cancel(id);
+
+            }
+
+            return RedirectToAction("SelectFlights");
+        }
+
     }
 }
