@@ -18,11 +18,12 @@ builder.Services.AddDefaultIdentity<AirlineUser>(options => options.SignIn.Requi
     .AddEntityFrameworkStores<AirlineDbContext>();
 builder.Services.AddControllersWithViews();
 
-string absolutePath = builder.Environment.ContentRootPath + "Data\\tickets.json";
+//string absolutePath = builder.Environment.ContentRootPath + "Data\\tickets.json";
 
-builder.Services.AddScoped<ITicketRepository, TicketFileRepository>(x=> new TicketFileRepository(absolutePath));
+//builder.Services.AddScoped<ITicketRepository, TicketFileRepository>(x=> new TicketFileRepository(absolutePath));
 //builder.Services.AddScoped<TicketDBRepository>();
-builder.Services.AddScoped<FlightDbRepository>();
+builder.Services.AddScoped<ITicketRepository, TicketDBRepository>();
+builder.Services.AddScoped(typeof(FlightDbRepository));
 
 var app = builder.Build();
 

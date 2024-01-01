@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Domain.Models.ViewModels
 {
@@ -19,7 +18,7 @@ namespace Domain.Models.ViewModels
         public int MaxRow { get; set; }
         public int MaxColumn { get; set; }
 
-        //[Remote(action: "IsSeatAvailable", controller: "Tickets", ErrorMessage = "This seat is already booked.")]
+        [Remote(action: "IsSeatAvailable", controller: "TicketsController", ErrorMessage = "This seat is already booked.")]
         public string SelectedSeat { get; set; }
     }
 }

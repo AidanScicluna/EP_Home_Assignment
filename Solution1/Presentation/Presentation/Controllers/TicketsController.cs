@@ -26,7 +26,6 @@ namespace Presentation.Controllers
             _userManager = userManager;
         }
 
-        /*[HttpGet]
         public JsonResult IsSeatAvailable(string selectedSeat, Guid flightId)
         {
             int Row = int.Parse(selectedSeat.Split(',')[0]);
@@ -35,7 +34,7 @@ namespace Presentation.Controllers
             bool isSeatAvailable = _ticketDBRepository.GetTickets(flightId).Any(x => x.Row != Row && x.Column != Column && x.Cancelled);
 
             return Json(isSeatAvailable);
-        }*/
+        }
 
         //shows the user all the available flights (i.e not fullied booked and/or in the past)
         //note: pilots and the ATC use UTC so when calculating departure and arrival, they should be changed to UTC (the flight's departure and
@@ -89,8 +88,6 @@ namespace Presentation.Controllers
                         {
                             var errorMessage = error.ErrorMessage;
                             var exception = error.Exception;
-                            
-                            // Log or print the error details for debugging
                         }
                     }
                     return View(ticketViewModel);

@@ -11,7 +11,5 @@ namespace Domain.Models
     {
         public string? PassportNumber { get; set; }
 
-        //public Guid userId { get; set; }
-
     }
 }
