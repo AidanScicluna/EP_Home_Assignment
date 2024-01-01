@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Domain.Models.ViewModels.FlightViewModel>
+﻿@using Data.Context;
+@using Data.Repositories;
+@using Presentation.Controllers;
+@model IEnumerable<Domain.Models.ViewModels.FlightViewModel>
 
 @{
     ViewData["Title"] = "showAvailableFlights";
@@ -27,6 +30,9 @@
             <td>
                 @Html.DisplayNameFor(modelItem => modelItem.RetailPrice)
             </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => modelItem.AvailableSeats)
+            </td>
             <th></th>
         </tr>
     </thead>
@@ -52,8 +58,13 @@
                 @Html.DisplayFor(modelItem => item.RetailPrice)
             </td>
             <td>
-                @Html.ActionLink("Book Flight", "BookFlight", new { FlightId = item.FlightId ,RetailPrice = item.RetailPrice })
-                
+                @Html.DisplayFor(modelItem => item.AvailableSeats)
+            </td>
+            <td>
+                    @if (item.AvailableSeats > 0)
+                    {
+                        @Html.ActionLink("Book Flight", "BookFlight", new { FlightId = item.FlightId ,RetailPrice = item.RetailPrice })
+                    }
             </td>
         </tr>
 }

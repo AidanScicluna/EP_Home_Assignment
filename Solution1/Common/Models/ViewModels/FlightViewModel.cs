@@ -16,5 +16,6 @@ namespace Domain.Models.ViewModels
         public string CountryFrom { get; set; }
         public string CountryTo { get; set; }
         public float RetailPrice { get; set; }
+        public int AvailableSeats { get; set; }
     }
 }

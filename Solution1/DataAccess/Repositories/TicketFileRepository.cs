@@ -20,12 +20,10 @@ namespace Data.Repositories
         {
             _filePath = filePath;
 
-            if (System.IO.File.Exists(filePath) == false)
+            if (!System.IO.File.Exists(filePath))
             {
-                using (var myFile = System.IO.File.Create(filePath))
-                {
-                    myFile.Close(); //if you dont close yourselves it will give us an error later up...
-                }
+                // Create the file and write an empty JSON array
+                System.IO.File.WriteAllText(filePath, "[]");
             }
         }
 
@@ -33,12 +31,24 @@ namespace Data.Repositories
         {
             ticket.Id = Guid.NewGuid();
 
-            var tickets = GetTickets(ticket.FlightIdFK).Where(ticket => !ticket.Cancelled).ToList();
-            tickets.Add(ticket);
+            string existingJson = System.IO.File.ReadAllText(_filePath);
+            List<Ticket> Listicket = JsonSerializer.Deserialize<List<Ticket>>(existingJson);
 
-            string jsonString = JsonSerializer.Serialize(tickets); //Converts from an object to a json string
+            bool ExistingTicket = Listicket.Any(x => x.FlightIdFK == ticket.FlightIdFK && x.Row == ticket.Row && x.Column == ticket.Column && !x.Cancelled);
 
-            System.IO.File.WriteAllText(_filePath, jsonString);
+            if (!ExistingTicket)
+            {
+                Listicket.Add(ticket);
+
+                string jsonString = JsonSerializer.Serialize(Listicket); //Converts from an object to a json string
+
+                System.IO.File.WriteAllText(_filePath, jsonString);
+            }
+            else
+            {
+                throw new InvalidOperationException("The chosen seat is already booked. Please select another one.");
+            }
+
         }
 
         public void Cancel(Guid ticketId)

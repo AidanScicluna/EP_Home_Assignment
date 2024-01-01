@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Views\ViewModels\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,7 @@
-﻿@model Domain.Models.ViewModels.TicketViewModel
+﻿@using Domain.Models;
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Domain.Models.ViewModels.TicketViewModel
 
 @{
     ViewData["Title"] = "BookFlight";
@@ -17,21 +20,37 @@
                 <input asp-for="FlightId" class="form-control" value="@Model.FlightId" />
                 <span asp-validation-for="FlightId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Row" class="control-label"></label>
-                <input asp-for="Row" class="form-control" />
-                <span asp-validation-for="Row" class="text-danger"></span>
+
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                @for (int r = 1; r <= Model.MaxRow; r++)
+                {
+                    <div style="display: flex; gap: 5px;margin-left:auto">
+                        @for (int c = 1; c <= Model.MaxColumn; c++)
+                        {
+                            string seatId = r + "," + c;
+
+                            <div style="border: solid 1px black; display: flex; flex-direction: column; align-items: center; margin: 5px;">
+                                <input type="radio" style="margin-bottom: 5px;" value="@seatId" name="SelectedSeat" />
+                                <img src="/images/Seat.jpg" style="width: 40px;" />
+                                <span>Row: @r, Column: @c</span>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="Column" class="control-label"></label>
-                <input asp-for="Column" class="form-control" />
-                <span asp-validation-for="Column" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="RetailPrice" class="control-label"></label>
                 <input asp-for="RetailPrice" class="form-control" value="@Model.RetailPrice" readonly />
                 <span asp-validation-for="RetailPrice" class="text-danger"></span>
             </div>
+            
+            <div class="form-group">
+                <label asp-for="PassportNumber" class="control-label"></label>
+                <input asp-for="PassportNumber" class="form-control" name="PassportNumber" value="@User.FindFirst("PassportNumber")?.Value" />
+                <span asp-validation-for="PassportNumber" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <label class="control-label">Upload Passport Image</label>
                 <input name="PassportImage" class="form-control" type="file" />

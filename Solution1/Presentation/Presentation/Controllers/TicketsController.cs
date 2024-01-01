@@ -26,6 +26,17 @@ namespace Presentation.Controllers
             _userManager = userManager;
         }
 
+        /*[HttpGet]
+        public JsonResult IsSeatAvailable(string selectedSeat, Guid flightId)
+        {
+            int Row = int.Parse(selectedSeat.Split(',')[0]);
+            int Column = int.Parse(selectedSeat.Split(',')[1]);
+
+            bool isSeatAvailable = _ticketDBRepository.GetTickets(flightId).Any(x => x.Row != Row && x.Column != Column && x.Cancelled);
+
+            return Json(isSeatAvailable);
+        }*/
+
         //shows the user all the available flights (i.e not fullied booked and/or in the past)
         //note: pilots and the ATC use UTC so when calculating departure and arrival, they should be changed to UTC (the flight's departure and
         //arival are in terms of the local times at the respective airports) source: ICAO SARPs Annex 2 (Rules of the Air)
@@ -40,6 +51,7 @@ namespace Presentation.Controllers
                     CountryTo = x.CountryTo,
                     ArrivalDate = x.ArrivalDate,
                     DepartureDate = x.DepartureDate,
+                    AvailableSeats = GetAvailableSeatsCount(x),
                     RetailPrice = x.WholesalePrice * (x.WholesalePrice * x.CommissionRate) //calculating the retail price of the tickets
                 }).ToList();
 
@@ -49,12 +61,18 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult BookFlight(Guid flightId, float retailPrice)
         {
+
+            int maxRowForSeats = _flightDBRepository.GetFlight(flightId).Rows;
+            int maxColumnForSeats = _flightDBRepository.GetFlight(flightId).Columns;
+
             TicketViewModel myModel = new TicketViewModel
             {
                 FlightId = flightId,
-                RetailPrice = retailPrice                
+                RetailPrice = retailPrice,
+                MaxRow = maxRowForSeats,
+                MaxColumn = maxColumnForSeats
             };
-
+        
             return View(myModel);
         }
         
@@ -121,7 +139,17 @@ namespace Presentation.Controllers
 
                 var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
 
-                passport = user.PassportNumber;
+                if(user  != null)
+                {
+                    passport = user.PassportNumber;
+                }
+                
+                if(passport == null || passport == ""){
+                    passport = ticketViewModel.PassportNumber;
+                };
+
+                ticketViewModel.Row = int.Parse(ticketViewModel.SelectedSeat.Split(',')[0]);
+                ticketViewModel.Column = int.Parse(ticketViewModel.SelectedSeat.Split(',')[1]);
 
                 _ticketDBRepository.Book(
                     new Ticket()
@@ -139,7 +167,7 @@ namespace Presentation.Controllers
                 return View(ticketViewModel);
             }catch(Exception ex)
             {
-                TempData["error"] = "an error occured";
+                TempData["error"] = ex.Message;
                 return View(ticketViewModel);
             }
         }

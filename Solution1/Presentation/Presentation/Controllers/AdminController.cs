@@ -40,6 +40,7 @@ namespace Presentation.Controllers
                     CountryTo = x.CountryTo,
                     ArrivalDate = x.ArrivalDate,
                     DepartureDate = x.DepartureDate,
+                    AvailableSeats = GetAvailableSeatsCount(x),
                     RetailPrice = x.WholesalePrice * (x.WholesalePrice * x.CommissionRate) //calculating the retail price of the tickets
                 }).ToList();
             return View(flights);
@@ -117,5 +118,15 @@ namespace Presentation.Controllers
             return RedirectToAction("SelectFlights");
         }
 
+        //gets all the available seats of any selected flight
+        //note: the average commercial airplane has around 150 to 300 seats, the average flight has around 100 passangers
+        public int GetAvailableSeatsCount(Flight flight)
+        {
+            var totalSeats = flight.Rows * flight.Columns;
+            var bookedSeatsCount = _ticketDBRepository.GetTickets(flight.Id).Count(x => x.FlightIdFK == flight.Id && !x.Cancelled);
+            var availableSeatsCount = totalSeats - bookedSeatsCount;
+
+            return availableSeatsCount;
+        }
     }
 }
